@@ -1,6 +1,7 @@
 var i = 0;
 var images = [];
-var periodicTime = 3000;
+var periodicTime = 3000; // 3sec
+var id; // Store the id of the timer in changeImage().
 
 // Image list
 images[0] = 'img/1.jpg';
@@ -19,17 +20,24 @@ function changeImage() {
         i = 0;
     }
 
-    setTimeout("changeImage()", periodicTime);
+    id = setTimeout("changeImage()", periodicTime); // setTimeout() returns the id value that can be used to cancel the timer.
 }
 
 // Executes when user clicked prev button.
 function prevImage() {
     i -= 2;
+    
+    if (i < 0){
+        i = 0;
+    }
+
+    clearTimeout(id); // cancel existing timer.
     changeImage();
 }
 
 // Executes when user clicked next button.
 function nextImage() {
+    clearTimeout(id); // cancel existing timer.
     changeImage();
 }
 
